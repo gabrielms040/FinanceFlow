@@ -1,17 +1,9 @@
-# Node
-node_modules/
-npm-debug.log
-yarn-error.log
+# Ignorar node_modules (front e back)
+frontend/node_modules/
+backend/node_modules/
 
-# React build
-build/
-.cache/
-
-# Env
-.env
-
-# Logs
-*.log
-
-# VSCode
-.vscode/
+# Ignorar builds e arquivos de ambiente
+frontend/.env
+frontend/build/
+backend/.env
+backend/dist/
