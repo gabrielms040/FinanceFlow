@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+
 const Login = () => {
 
   const navigate = useNavigate();  
@@ -13,13 +14,13 @@ const Login = () => {
 
   const [message, setMessage] = useState('');
 
-  // Function to attach input values to state
+  // Function to attach forms input values to state
 const valueInput = (e) => setData({ ...data, [e.target.name]: e.target.value });
 
 const LoginRequest = async (e) => {
-  e.preventDefault(); // Prevent page refresh 
+  e.preventDefault();
 
-
+// Function to handle login request
   await axios.post('http://localhost:3001/login' , data)
     .then(response => {
       localStorage.setItem('token', response.data.token);

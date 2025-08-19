@@ -3,10 +3,18 @@ const {transactionSchema ,PatchSchema ,PostSearchSchema} = require('../Schemas/t
 
 //select of all user transactions
 exports.getAll = async (req, res) => {
-  const { id } = req.params;
   try {
-    const result = await db.query('SELECT * FROM transactions WHERE user_id = $1', [id]);
-    res.json(result.rows);
+    const result = await db.query('SELECT * FROM transactions WHERE user_id = $1', [req.userId]);
+    const transactions = result.rows;
+    res.json(
+      transactions.map(transaction => ({
+        id: transaction.id,
+        description: transaction.description,
+        amount: transaction.amount,
+        type: transaction.type,
+        transaction_date: transaction.transaction_date
+      }))
+    );
   } catch (error) {
     console.error(error);
     res.status(400).send('Erro ao buscar transações');

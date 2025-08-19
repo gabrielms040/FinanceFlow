@@ -23,9 +23,9 @@ exports.login = async (req, res) => {
             return res.status(401).send('Senha incorreta');
         }
        const token = jwt.sign(
-        { userId: user.id , name: user.name, email: user.email },              
+        { userId: user.id , name: user.name },              
         process.env.JWT_SECRET,         
-        { expiresIn: '6h' }              
+        { expiresIn: '1h' }              
         );
 
         return res.status(200).send({message: 'Usuário logado com sucesso',
