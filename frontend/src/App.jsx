@@ -3,7 +3,7 @@ import Login from './pages/public/Login.jsx';
 import Register from './pages/public/Register';
 import Dashboard from './pages/private/Dashboard';
 import Profile from './pages/private/Profile';
-import NewTransactions from './pages/private/NewTransactions.jsx';
+import NewTransaction from './pages/private/NewTransaction.jsx';
 
 
 
@@ -16,7 +16,7 @@ function App() {
             <Route >
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/NewTransactions" element={<NewTransactions />} />
+              <Route path="/NewTransaction" element={<NewTransaction />} />
             </Route>
 
             <Route path="/register" element={<Register />} />

@@ -7,10 +7,9 @@ function verifyToken(req, res, next) {
   const token = authHeader.replace('Bearer ', '');
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);   
+    const decoded = jwt.verify(token, process.env.JWT_ACCESS);   
     req.userId = decoded.userId;
     req.userName = decoded.name;
-    req.userEmail = decoded.email;
 
     next();
   } catch (err) {

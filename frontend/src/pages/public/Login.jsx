@@ -21,7 +21,7 @@ const LoginRequest = async (e) => {
   e.preventDefault();
 
 // Function to handle login request
-  await axios.post('http://localhost:3001/login' , data)
+  await axios.post('https://localhost:3001/login' , data)
     .then(response => {
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user_id', response.data.id);

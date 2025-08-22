@@ -20,7 +20,7 @@ const addUser = async (e) => {
   e.preventDefault(); // Prevent page refresh 
 
 
-  await axios.post('http://localhost:3001/register' , data)
+  await axios.post('https://localhost:3001/register' , data)
     .then(response => {
       setMessage(response.data);
       setData({
