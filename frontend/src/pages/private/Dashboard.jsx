@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useAuth } from '../../context/AuthContext';
 
 
 const Dashboard = () => {
-
+    const { user } = useAuth();
     const [transactions, setTransactions] = useState([]);
     const DateFormat = new Intl.DateTimeFormat('pt-BR', {
         year: 'numeric',
@@ -12,18 +13,24 @@ const Dashboard = () => {
     });
 
 useEffect (() => {
-    (async () => {
+    if (!user.accessToken) return;
+
+    const fetchTransactions = async () => {
         try {
-        const response = await axios.get('https://localhost:3001/transactions/getAll', {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-        }, });
-            setTransactions(response.data);
+            const response = await axios.get('https://localhost:3001/transactions/getAll', {
+                headers: {
+                    Authorization: `Bearer ${user.accessToken}`
+            },
+         });
+                setTransactions(response.data);
         } catch (error) {
             console.error('Error fetching transactions:', error);
         }
-    })();
-}, []);
+    };
+fetchTransactions();
+}, [user.accessToken]);
+
+
 
   return (
     <div>

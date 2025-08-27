@@ -28,7 +28,7 @@ const addUser = async (e) => {
         email: '',
         password: ''
       });
-      navigate('/');
+      navigate('/login');
     })
     .catch((err) => {
       if(err.response){
@@ -51,7 +51,7 @@ const addUser = async (e) => {
         <input type="text" placeholder="Password" name='password' value={data.password} onChange={valueInput} required /> 
         <button type="submit">Register</button>
         <p> ja tem uma conta?
-        <button onClick={() => navigate('/')}>Login</button>    
+        <button onClick={() => navigate('/login')}>Login</button>    
        </p>
         {message ? <p>{message}</p> : ""}
       </form>

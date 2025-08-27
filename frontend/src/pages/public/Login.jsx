@@ -1,49 +1,25 @@
 import { useState } from 'react';
-import axios from 'axios';
+import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
-
-const Login = () => {
-
+function LoginPage(){
+  const { login } = useAuth(); // get the login function from useAuth
   const navigate = useNavigate();  
-  // State to hold form data
-  const [data, setData] = useState({
-    email: '',
-    password: ''
-  });
-
+  const [data, setData] = useState({ email: '',password: '' });
   const [message, setMessage] = useState('');
 
   // Function to attach forms input values to state
-const valueInput = (e) => setData({ ...data, [e.target.name]: e.target.value });
+  const valueInput = (e) => setData({ ...data, [e.target.name]: e.target.value });
 
-const LoginRequest = async (e) => {
-  e.preventDefault();
+  // function to request login 
+  const LoginRequest = async (e) => {
+    e.preventDefault();
 
-// Function to handle login request
-  await axios.post('https://localhost:3001/login' , data)
-    .then(response => {
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('user_id', response.data.id);
-      localStorage.setItem('user_name', response.data.name);
-      setMessage(response.data.message);
-      setData({
-        email: '',
-        password: ''
-      });
-    })
-    .catch((err) => {
-      if(err.response){
-      setMessage(err.response.data);
-      console.log(err.response.data);
-      } else {
-        setMessage("Erro: Tente mais tarde!");
-      }
-    });
-
-
-
-}
+    const result = await login(data)
+    result.success ? navigate('/dashboard') : setMessage(result.message);  
+  }
+  
+    
   return (
   <div>
     <h2>Login Page</h2>
@@ -58,6 +34,6 @@ const LoginRequest = async (e) => {
        </p>
   </div>
   )
-}
+ }
 
-export default Login
+export default LoginPage;
