@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { registerUser } from '../../api/usersAPI';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -18,29 +18,18 @@ const valueInput = (e) => setData({ ...data, [e.target.name]: e.target.value });
 
 const addUser = async (e) => {
   e.preventDefault(); // Prevent page refresh 
-
-
-  await axios.post('https://localhost:3001/register' , data)
-    .then(response => {
-      setMessage(response.data);
-      setData({
-        name: '',
-        email: '',
-        password: ''
-      });
-      navigate('/login');
-    })
-    .catch((err) => {
-      if(err.response){
-      setMessage(err.response.data);
-      console.log(err.response.data);
-      } else {
-        setMessage("Erro: Tente mais tarde!");
-      }
-    });
-
-
-
+  try{
+    const response = await registerUser(data);
+        setMessage(response.data);
+        setData({ name: '', email: '', password:'' });
+        navigate('/login');
+    } catch(err){
+        if(err.response){
+        setMessage(err.response.data);
+        } else {
+          setMessage("Erro: Tente mais tarde!");
+        }
+      };
 }
   return (
   <div>

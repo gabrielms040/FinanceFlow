@@ -24,7 +24,7 @@ exports.login = async (req, res) => {
        const AccessToken = jwt.sign(
         { userId: user.id , name: user.name },              
         process.env.JWT_ACCESS,         
-        { expiresIn: '1h' }              
+        { expiresIn: '20s' }              
         );
 
         const RefreshToken = jwt.sign(
@@ -40,8 +40,8 @@ exports.login = async (req, res) => {
             sameSite: 'none' //Development only, in deploy set to 'strict'
             }
         );  
-        
 
+        console.log(RefreshToken)
         return res.status(200).send({message: 'User successfully logged' ,
             token:AccessToken,
             id: user.id,

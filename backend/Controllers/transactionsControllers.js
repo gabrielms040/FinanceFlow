@@ -9,6 +9,7 @@ exports.getAll = async (req, res) => {
     res.json(
       transactions.map(transaction => ({
         id: transaction.id,
+        
         description: transaction.description,
         amount: transaction.amount,
         type: transaction.type,
@@ -16,8 +17,7 @@ exports.getAll = async (req, res) => {
       }))
     );
   } catch (error) {
-    console.error(error);
-    res.status(400).send('Erro ao buscar transações');
+    res.status(401).send(error);
   }
 };
 
@@ -39,8 +39,7 @@ exports.create = async (req, res) => {
     );
     res.send('Transação criada com sucesso!');
   } catch (error) {
-    console.error('Erro ao criar transação:', error);
-    res.status(400).send('Erro ao criar transação');
+    res.status(401).send(error);
   }
 };
 
@@ -101,8 +100,7 @@ exports.search = async (req, res) => {
     const result = await db.query(query, values);
     res.json(result.rows);
   } catch (error) {
-    console.error('Erro ao buscar transações:', error);
-    res.status(400).send('Erro ao buscar transações');
+    res.status(401).send(error);
   }
 };
 
@@ -128,8 +126,7 @@ exports.update = async (req, res) => {
     }
     res.send('Transação atualizada com sucesso!');
   } catch (error) {
-    console.error('Erro ao atualizar transação:', error);
-    res.status(400).send('Erro ao atualizar transação');
+    res.status(401).send(error);
   }
 };
 
@@ -161,8 +158,7 @@ exports.partialUpdate = async (req, res) => {
     }
     res.json({ message: 'Transação atualizada com sucesso.' });
   } catch (error) {
-    console.error('Erro ao atualizar transação:', error);
-    res.status(400).send('Erro ao atualizar transação');
+    res.status(401).send(error);
   }
 };
 
@@ -177,7 +173,6 @@ exports.remove = async (req, res) => {
       res.send('Transação deletada!');
     }
   } catch (error) {
-    console.error('Erro ao deletar transação:', error);
-    res.status(400).send('Erro ao deletar transação');
+    res.status(401).send(error);
   }
 };

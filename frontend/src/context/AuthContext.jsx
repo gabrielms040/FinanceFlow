@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect} from "react"; 
-import axios from "axios";
+import { loginUser } from "../api/usersAPI";
+import { setUserData } from "../api/utils";
 
 const AuthContext = createContext(); 
 
@@ -22,6 +23,7 @@ export const AuthProvider = ({children}) => {
 
       if (accessToken) {
         setUser({userID:userId, userName:userName, accessToken:accessToken});
+        setUserData(user)
       } 
 
       setLoading(false)
@@ -30,7 +32,7 @@ export const AuthProvider = ({children}) => {
     //get to call in login page
     const login = async (data) => {
       try {     
-          const response = await axios.post('https://localhost:3001/login' , data)
+          const response = await loginUser(data);
             localStorage.setItem('userId', response.data.id);
             localStorage.setItem('userName', response.data.name);
             localStorage.setItem('accessToken', response.data.token);
@@ -39,17 +41,19 @@ export const AuthProvider = ({children}) => {
               userName: response.data.name,
               accessToken: response.data.token
             })
+            setUserData(user)
             return{success: true};
       } catch (err) {
           const message = err.response ? err.response.data : 'Erro interno, tente novamente mais tarde !';
           return {success: false, message}
       }
-    }
+    };
 
     //clear auth infos to not pass at private routes
     const logout = () => {
     localStorage.clear();
     setUser({ userID:'', userName:'', accessToken:''});
+    setUser(user)
     };
 
     //set the AuthContext elements 

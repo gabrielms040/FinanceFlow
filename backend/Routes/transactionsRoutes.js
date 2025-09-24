@@ -5,12 +5,12 @@ const verifyToken = require('../middlewares/authMiddleware');
 
 router.use(verifyToken); 
 
-router.get('/getAll/', transactionsController.getAll);
-router.post('/create', transactionsController.create);
-router.post('/search', transactionsController.search);
-router.put('/update/:id', transactionsController.update);
-router.patch('/patch/:id', transactionsController.partialUpdate);
-router.delete('/delete/:id', transactionsController.remove);
+router.get('transactions/getAll/', transactionsController.getAll);
+router.post('transactions/create', transactionsController.create);
+router.post('transactions/search', transactionsController.search);
+router.put('transactions/update/:id', transactionsController.update);
+router.patch('transactions/patch/:id', transactionsController.partialUpdate);
+router.delete('transactions/delete/:id', transactionsController.remove);
 
 module.exports = router;
 

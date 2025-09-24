@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { loginUser } from '../../api/usersAPI';
 
 function LoginPage(){
   const { login } = useAuth(); // get the login function from useAuth
@@ -15,7 +16,7 @@ function LoginPage(){
   const LoginRequest = async (e) => {
     e.preventDefault();
 
-    const result = await login(data)
+    const result = await loginUser(data)
     result.success ? navigate('/dashboard') : setMessage(result.message);  
   }
   

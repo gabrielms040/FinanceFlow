@@ -19,8 +19,7 @@ useEffect (() => {
         try {
             const response = await axios.get('https://localhost:3001/transactions/getAll', {
                 headers: {
-                    Authorization: `Bearer ${user.accessToken}`
-            },
+                    Authorization: `Bearer ${user.accessToken}` },
          });
                 setTransactions(response.data);
         } catch (error) {
